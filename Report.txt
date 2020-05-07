@@ -1,0 +1,98 @@
+To start with it, I first created a class called CamelCaseConverter and then moved to the tests.
+The first test I created was the one that checked if the camel case string is empty or not and at first it just checked for null entry. I later changed it when I tested an entry different than null, as follows.
+Before, it was like this:
+
+@Test
+public void emptyString()
+{
+  assertTrue( conv.isEmpty( null ) );
+}
+
+public boolean isEmpty( String camelCaseString )
+{
+  Return ( camelCaseString == null );
+}
+
+
+Then, I added entries to the test and changed the code:
+
+@Test
+public void emptyString()
+{
+  assertTrue( conv.isEmpty( "" ) );
+  assertTrue( conv.isEmpty( null ) );
+  assertTrue( conv.isEmpty( " " ) );
+  assertFalse( conv.isEmpty( "Test" ) );
+}
+
+public boolean isEmpty( String camelCaseString )
+{
+  return ( camelCaseString == "" ) | ( camelCaseString == null ) | ( camelCaseString == " " );
+}
+
+
+The next test added checks if the string starts with number, which is not allowed. The function that checks for number at the first position of the string uses the in-built isDigit() method.
+Moving to the next test, I created the one that looks for special characters in the string. The function checks each character using the in-built methods isDigit() and isLetter(). When one of them is false, the function breaks and returns true.
+I then create a test to check if there are any space in the string but them deleted it because the last test already does it.
+To complete the code, I created the test that checks if the camel case string is converted to a lower-case string list. The test consists of passing a camel case string as an argument and then comparing each position of the returned list with the desired result and also checking its size.
+The function that does it first checks if the string is valid, if not, throw error messages. If the string is valid, at first, the following happened:
+- Split the camel case string based on a regex declared at the beginning of the code;
+- A list is declared;
+- A for loop goes through each element of the came case converted array and convert it to lower case; and
+- The result is then added to a list.
+
+@Test
+public void convertToCamelCase()
+{
+  convertedList = conv.ConvertCamelCase( "nome" );
+  assertEquals( convertedList.get(0) , "nome" );
+  assertEquals( convertedList.size() , 1 );
+  convertedList = conv.ConvertCamelCase( "nomeComposto" );
+  assertEquals( convertedList.get(0) , "nome" );
+  assertEquals( convertedList.get(1) , "composto" );
+  assertEquals( convertedList.size() , 2 );
+}
+
+public List<String> ConvertCamelCase( String camelCaseString )
+{
+  if ( isEmpty( camelCaseString ) )
+  {
+    throw new StringException( "Empty String" );
+  }
+  else if ( startWithNumber( camelCaseString ) )
+  {
+    throw new StringException( "String starts with number" );
+  }
+  else if ( haveSpeacialChars( camelCaseString ) )
+  {
+    throw new StringException( "String has special chars" );
+  }
+  else
+  {
+    String[] camelCaseArray = camelCaseString.split( regex ) );
+    List<String> convertedList = new ArrayList<String>();
+    for( int i = 0 ; I < camelCaseArray.length ; i++ )
+    {
+      convertedList.add( camelCaseArray[ I ].toLLowerCase() );
+    }
+    return convertedList;
+  }
+}
+
+
+Thinking about refactoring the code so I don’t have a huge function, I realized that I could create a function to convert the camel case array to lower-case. So, I created a test that takes an array and the result is a list with all the elements converted. I realized later that the test is not necessary because the convertToCamelCase test already goes through both functions.
+The last else of the convertToCamelCase function ended up like this:
+
+return stringToLowerCase( camelCaseString.split( regex ) );
+
+A new function based on what is expected in the convertToCamelCase test was created.
+
+public List<String> stringToLowerCase( String[] camelCaseArray )
+{
+  List<String> convertedList = new ArrayList<String>();
+  for (int i = 0 ; i < camelCaseArray.length ; i++ )
+  {
+    convertedList.add( camelCaseArray[i].toLowerCase() );
+  }
+  return convertedList;
+}
