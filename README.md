@@ -16,3 +16,5 @@ citizenSSNumber       citizen, ss, number
 getFirst10            get, first, 10
 10Number              invalid string (it cannot start with numbers)
 full#Name             invalid string (it canoot have special characters, only letters and digit are allowed)
+
+This is part of the TDD (Test Driven Development) course by Coursera (https://www.coursera.org/learn/tdd-desenvolvimento-de-software-guiado-por-testes/)
