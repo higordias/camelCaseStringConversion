@@ -1,7 +1,7 @@
 # camelCaseStringConversion
 A method created using TDD (Test Driven Development) that transform a camel case string in a list of words.
 
-Peer-graded Assignment: 
+Peer-graded Assignment: Camel Case String Conversion
 
 The aim of this assignment is to created a method that gets a camel case string and transform it in a list of words.
 Some input and output examples:
